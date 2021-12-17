@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "32018494293",
+    "project_id": "notlens-c8667",
+    "storage_bucket": "notlens-c8667.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:32018494293:android:546e5bb0b90862e398f5dc",
+        "android_client_info": {
+          "package_name": "com.notlens"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "32018494293-jjip3vpg38l483g1q8mcbpr8iacvds64.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBKd-QEzWpyXxDwEVEj3nrZ5Xmch4o9PC4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "32018494293-jjip3vpg38l483g1q8mcbpr8iacvds64.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
