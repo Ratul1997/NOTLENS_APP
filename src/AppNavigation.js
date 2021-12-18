@@ -9,7 +9,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import CustomIcons from './components/CustomIcons';
 import {normalize} from './styles/utilityStyle';
 import Home from './container/Home/Home';
-
+import ProductUpload from './container/ProductUpload';
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -102,7 +102,7 @@ const TabNav = props => {
 
       <Tab.Screen
         name="Camera"
-        component={defaultScreen}
+        component={ProductUpload}
         options={{
           tabBarIcon: ({focused}) => {
             return (
