@@ -87,8 +87,10 @@ export function timeSince(date) {
   };
 }
 
-export const findInArray = (array, itemToFind, key) => {
-  return array.findIndex(item => item[key] === itemToFind);
+export const findInArray = (array, itemToFind, key = null) => {
+  return array.findIndex(item =>
+    key === null ? item === itemToFind : item[key] === itemToFind,
+  );
 };
 
 export function secondsToHms(d) {
@@ -227,4 +229,8 @@ export const convertDateToYMDHMS = date => {
   return (
     year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds
   );
+};
+
+export const isStringEmpty = str => {
+  return str.trim().length === 0 ? true : false;
 };
