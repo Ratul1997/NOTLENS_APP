@@ -9,6 +9,7 @@ export const colors = {
   gray: '#ADADAD',
   lightGray: '#D3D3D3',
   lightBlack: '#413737',
+  whiteSmoke: 'whitesmoke',
 };
 
 export const theme = {

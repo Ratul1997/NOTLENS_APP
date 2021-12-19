@@ -1,4 +1,4 @@
-import React, {Component, useEffect} from 'react';
+import React, {Component, useEffect, useState} from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -9,6 +9,11 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import CustomIcons from './components/CustomIcons';
 import {normalize} from './styles/utilityStyle';
 import Home from './container/Home/Home';
+import LandingPage from './container/LadingPage/LandingPage';
+import Login from './container/authentication/Login';
+import SignUp from './container/authentication/SignUp';
+import auth from '@react-native-firebase/auth';
+import {AuthContext} from './contexts/AuthProvider';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -170,11 +175,28 @@ const TabNav = props => {
   );
 };
 const AppNavigation = () => {
+  const [initializing, setInitializing] = useState(true);
+  const [user, setUser] = useState();
+  // Handle user state changes
+  const onAuthStateChanged = user => {
+    setUser(user);
+    // console.log(user.uid);
+    if (initializing) setInitializing(false);
+  };
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+   
+    return subscriber; // unsubscribe on unmount
+  }, []);
+  if (initializing) return null;
   return (
     <Stack.Navigator
-      initialRouteName="HomeNav"
+      initialRouteName="LandingNav"
       screenOptions={{headerShown: false}}>
       <Stack.Screen name="HomeNav" component={TabNav} />
+      <Stack.Screen name="LandingNav" component={LandingPage} />
+      <Stack.Screen name="LoginNav" component={Login} />
+      <Stack.Screen name="SignUpNav" component={SignUp} />
     </Stack.Navigator>
   );
 };
