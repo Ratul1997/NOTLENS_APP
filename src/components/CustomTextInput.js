@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Text, View, TextInput} from 'react-native';
-import {theme} from '../configs/colors';
+import {colors, theme} from '../configs/colors';
 import {getFontFamily, normalize} from '../styles/utilityStyle';
 export default function CustomTextInput({
   Icon,
@@ -13,9 +13,13 @@ export default function CustomTextInput({
   value,
   numberOfLines,
   multiline,
-  disabled,
+  editable,
   iconOnPress,
   leftIcon,
+  borderRadius,
+  iconColor,
+  keyboardType,
+  onKeyPress,
 }) {
   return (
     <View style={{alignSelf: 'center', width: '90%', marginVertical: 1}}>
@@ -37,7 +41,9 @@ export default function CustomTextInput({
           width: '100%',
           paddingHorizontal: normalize(5),
           justifyContent: 'space-between',
-          borderRadius: normalize(5),
+          borderRadius: normalize(borderRadius),
+          borderWidth: 1,
+          borderColor: colors.lightGray,
         }}>
         {leftIcon && Icon && (
           <Icon
@@ -51,7 +57,7 @@ export default function CustomTextInput({
         <TextInput
           placeholder={placeholder}
           style={{
-            height: multiline ? normalize(100) : normalize(50),
+            // height: normalize(45),
             width: '94%',
             alignSelf: 'center',
             color: 'black',
@@ -64,12 +70,14 @@ export default function CustomTextInput({
           secureTextEntry={securedText}
           value={value}
           multiline={multiline}
-          editable={disabled}
+          editable={editable}
+          keyboardType={keyboardType ?? 'default'}
+          onKeyPress={onKeyPress}
         />
         {!leftIcon && Icon && (
           <Icon
             name={iconName}
-            color="gray"
+            color={iconColor ?? 'gray'}
             size={size}
             style={{width: '6%'}}
             onPress={iconOnPress}
