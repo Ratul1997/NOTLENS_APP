@@ -7,22 +7,21 @@ import {colors, theme} from '../../configs/colors';
 import {getFontFamily, normalize} from '../../styles/utilityStyle';
 import {findInArray, isStringEmpty} from '../../utility/utils';
 
-export default function ProductTags() {
-  const [badges, setBadges] = useState([]);
+export default function ProductTags({productTags, setProductTags}) {
   const [text, setText] = useState('');
   const onTagSubmit = () => {
     if (isStringEmpty(text)) return;
-    badges.push(text);
-    setBadges([...badges]);
+    productTags.push(text.trim());
+    setProductTags([...productTags]);
     setText('');
   };
 
   const onRemoveTag = badgeItem => {
     console.log(badgeItem);
-    const index = findInArray(badges, badgeItem);
+    const index = findInArray(productTags, badgeItem);
     console.log(index);
-    badges.splice(index, 1);
-    setBadges([...badges]);
+    productTags.splice(index, 1);
+    setProductTags([...productTags]);
   };
   const renderBadges = () => {
     return (
@@ -34,7 +33,7 @@ export default function ProductTags() {
           flexWrap: 'wrap',
           alignSelf: 'center',
         }}>
-        {badges.map((badgeItem, index) => {
+        {productTags.map((badgeItem, index) => {
           return (
             <Pressable
               key={index}

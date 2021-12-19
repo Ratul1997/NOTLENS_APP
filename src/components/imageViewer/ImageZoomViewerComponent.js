@@ -38,7 +38,7 @@ export default class ImageZoomViewerComponent extends Component {
     return (
       <SafeAreaView
         style={{
-          padding: 10,
+          padding: normalize(8),
         }}>
         <Modal
           visible={modalVisible}
