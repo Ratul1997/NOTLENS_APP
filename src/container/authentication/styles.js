@@ -5,16 +5,16 @@ import {getFontFamily} from '../../styles/utilityStyle';
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    backgroundColor: colors.white,
+  
     paddingHorizontal: 0,
     paddingVertical: 0,
-    backgroundColor: colors.cyan,
+    backgroundColor: theme.backgroundColor,
   },
   titleContainer: {
     // backgroundColor: 'green',
     paddingHorizontal: '6%',
     height: '20%',
-    justifyContent:'center'
+    justifyContent: 'center',
   },
   topBar: {
     // flex:1,
@@ -22,13 +22,17 @@ const styles = StyleSheet.create({
     // alignItems: 'flex-end',
   },
   title: {
-    fontSize: 32,
-    color: colors.white,
+    fontSize: 20,
+    color: theme.fontColor,
     fontWeight: 'bold',
     fontFamily: getFontFamily(),
+    textAlign: 'center',
+    marginVertical: 5,
   },
   subTitle: {
-    color: colors.white,
+    color: theme.fontColor,
+    textAlign: 'center',
+    marginVertical: 10,
   },
   inputContainer: {
     flex: 2,
@@ -40,6 +44,7 @@ const styles = StyleSheet.create({
   },
   inputContent: {
     paddingHorizontal: 0,
+    marginHorizontal: 20,
   },
   textInput: {
     color: 'black',
@@ -51,6 +56,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     backgroundColor: colors.whiteSmoke,
     paddingHorizontal: 10,
+  
   },
   level: {
     fontSize: 14,

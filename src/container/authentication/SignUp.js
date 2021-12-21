@@ -8,15 +8,16 @@ import {
 } from 'react-native';
 import {Picker} from '@react-native-picker/picker';
 import RoundButton from '../../components/buttons/RoundButton';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import globalStyle from './styles';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {colors, theme} from '../../configs/colors';
+
 import {AuthContext} from '../../contexts/AuthProvider';
-import {
-  getFontFamily,
-  getHeightWidthOfScreen,
-  shadow,
-} from '../../globalStyle/utilityStyle';
-const SignUp = () => {
+import {getFontFamily, normalize} from '../../styles/utilityStyle';
+import CustomButton from '../../components/CustomButton';
+import CustomHeader from '../../components/CommonHeader';
+import CustomIcons from '../../components/CustomIcons';
+import CustomTextInput from '../../components/CustomTextInput';
+const SignUp = ({navigation}) => {
   const [nidNumber, setNidNumber] = useState('');
   const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
@@ -25,7 +26,20 @@ const SignUp = () => {
   const [password, setPassword] = useState('');
   const [repeatePassword, setRepeatePassword] = useState('');
   const {signUp} = useContext(AuthContext);
-
+  const LeftIconHeader = () => {
+    return (
+      <TouchableOpacity
+        onPress={() => navigation.goBack()}
+        style={{justifyContent: 'center'}}>
+        {/* <CustomIcon name="ic_arrow_left" color="white" size={20} /> */}
+        <CustomIcons.Ionicons
+          name="chevron-back-sharp"
+          color={colors.lightBlack}
+          size={normalize(20)}
+        />
+      </TouchableOpacity>
+    );
+  };
   const onSubmit = async () => {
     await signUp(userName, email, phoneNumber, userRole, nidNumber, password);
 
@@ -33,110 +47,131 @@ const SignUp = () => {
     // navigation.navigate('HomeNav')
   };
   return (
-    <View style={globalStyle.root}>
-      <View style={globalStyle.titleContainer}>
-        <View style={globalStyle.topBar}>
-          <View>
-            <Text>Logo</Text>
-          </View>
-          {/* <View style={globalStyle.topBarButton}>
-            <TouchableOpacity>
-              <Text>Sign Up</Text>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <Text>Log In</Text>
-            </TouchableOpacity>
-          </View> */}
-        </View>
-        <Text style={globalStyle.title}>Sign Up</Text>
-        <Text style={globalStyle.subTitle}>Create New Account</Text>
-      </View>
-      <View style={globalStyle.inputContainer}>
-        <View style={globalStyle.inputContent}>
-          <Text style={globalStyle.level}>User Name</Text>
-          <TextInput
-            style={globalStyle.textInput}
-            placeholder="nakib57"
-            placeholderTextColor="gray"
-            onChangeText={setUserName}
-            value={userName}
-          />
-        </View>
-
-        <View style={globalStyle.inputContent}>
-          <Text style={globalStyle.level}>Phone Number</Text>
-          <TextInput
-            style={globalStyle.textInput}
-            placeholder="017102004244"
-            placeholderTextColor="gray"
-            onChangeText={setPhoneNumber}
-            value={phoneNumber}
-            keyboardType="numeric"
-          />
-        </View>
-        <View style={globalStyle.inputContent}>
-          <Text style={globalStyle.level}>Email</Text>
-          <TextInput
-            style={globalStyle.textInput}
-            placeholder="nakib@gmail.com"
-            placeholderTextColor="gray"
-            onChangeText={setEmail}
-            value={email}
-          />
-        </View>
-        <View style={globalStyle.inputContent}>
-          <Text style={globalStyle.level}>Nid number or Passport number</Text>
-          <TextInput
-            style={globalStyle.textInput}
-            placeholder="02341231A"
-            placeholderTextColor="gray"
-            onChangeText={setNidNumber}
-            value={nidNumber}
-          />
-        </View>
-        <View style={globalStyle.inputContent}>
-          <Text style={globalStyle.level}>User Role</Text>
-          <View style={globalStyle.textInput}>
-            <Picker
-              selectedValue={userRole}
-              style={globalStyle.dorpdown}
-              onValueChange={(itemValue, itemIndex) => setUserRole(itemValue)}>
-              <Picker.Item label="Bidder" value="bidder" />
-              <Picker.Item label="Seller" value="seller" />
-            </Picker>
-          </View>
-        </View>
-        <View style={globalStyle.inputContent}>
-          <Text style={globalStyle.level}>Password</Text>
-          <TextInput
-            style={globalStyle.textInput}
-            secureTextEntry={true}
-            placeholder="........."
-            placeholderTextColor="gray"
-            onChangeText={setPassword}
-            value={password}
-          />
-        </View>
-        {/* <View style={globalStyle.inputContent}>
-          <Text style={globalStyle.level}>Repeat Password</Text>
-          <TextInput
-            secureTextEntry={true}
-            style={globalStyle.textInput}
-            placeholder=".........."
-            placeholderTextColor="gray"
-            onChangeText={setRepeatePassword}
-            value={repeatePassword}
-          />
-        </View> */}
-
-        <RoundButton title={'Sign Up'} onPress={onSubmit} />
-        <Text style={globalStyle.suggestion}>
-          Have an Account?{' '}
-          <Text style={{fontWeight: 'bold', color: 'red'}}> Log In</Text>{' '}
+    <SafeAreaView style={{flex: 1, backgroundColor: theme.backgroundColor}}>
+      <CustomHeader
+        title="Sign Up"
+        LeftIcon={LeftIconHeader()}
+        // showRightIcon
+        // RightIcon={RightIcon()}
+      />
+      <View style={{marginHorizontal: '20%', marginTop: normalize(20)}}>
+        <Text style={styles.title}>Let's get started</Text>
+        <Text style={styles.subTitle}>
+          Pleans give your information to continue.
         </Text>
       </View>
-    </View>
+      <View style={{flex:1,justifyContent:'center'}}>
+        <View style={styles.inputContent}>
+          <CustomTextInput
+            placeholder={'Username'}
+            borderRadius={normalize(6)}
+            // onChangeText={input => setText(input)}
+            // value={text}
+            leftIcon={true}
+            iconName="user"
+            Icon={CustomIcons.FontAwesome5}
+            size={normalize(15)}
+            iconColor={colors.green}
+            // iconOnPress={onTagSubmit}
+            // onKeyPress={handleKeyPress}
+          />
+        </View>
+        <View style={styles.inputContent}>
+          <CustomTextInput
+            placeholder={'Full Name'}
+            borderRadius={normalize(6)}
+            // onChangeText={input => setText(input)}
+            // value={text}
+            leftIcon={true}
+            iconName="user"
+            Icon={CustomIcons.FontAwesome5}
+            size={normalize(15)}
+            iconColor={colors.green}
+            // iconOnPress={onTagSubmit}
+            // onKeyPress={handleKeyPress}
+          />
+        </View>
+        <View style={styles.inputContent}>
+          <CustomTextInput
+            placeholder={'Email'}
+            borderRadius={normalize(6)}
+            // onChangeText={input => setText(input)}
+            // value={text}
+            leftIcon={true}
+            iconName="envelope"
+            Icon={CustomIcons.FontAwesome5}
+            size={normalize(15)}
+            iconColor={colors.green}
+            // iconOnPress={onTagSubmit}
+            // onKeyPress={handleKeyPress}
+          />
+        </View>
+        <View style={styles.inputContent}>
+          <CustomTextInput
+            placeholder={'Phone Number'}
+            borderRadius={normalize(6)}
+            // onChangeText={input => setText(input)}
+            // value={text}
+            leftIcon={true}
+            iconName="phone-alt"
+            Icon={CustomIcons.FontAwesome5}
+            size={normalize(15)}
+            iconColor={colors.green}
+            keyboardType={'numeric'}
+            // iconOnPress={onTagSubmit}
+            // onKeyPress={handleKeyPress}
+          />
+        </View>
+        <View style={styles.inputContent}>
+          <CustomTextInput
+            placeholder={'Nid or Passport Number'}
+            borderRadius={normalize(6)}
+            // onChangeText={input => setText(input)}
+            // value={text}
+            leftIcon={true}
+            iconName="address-card"
+            Icon={CustomIcons.FontAwesome5}
+            size={normalize(15)}
+            iconColor={colors.green}
+            // iconOnPress={onTagSubmit}
+            // onKeyPress={handleKeyPress}
+          />
+        </View>
+      </View>
+      <View
+        style={{
+          alignItems: 'center',
+          marginVertical: normalize(15),
+        }}>
+        <CustomButton
+          width={'90%'}
+          filled={true}
+          title={'Submit'}
+          fontWeight={'700'}
+          // onPress={() => navigation.navigate('OtpNav')}
+          borderRadius={normalize(6)}
+        />
+      </View>
+    </SafeAreaView>
   );
 };
-
+{
+  /* <UserOutlined /> */
+}
+const styles = StyleSheet.create({
+  title: {
+    textAlign: 'center',
+    fontWeight: '700',
+    fontSize: normalize(16),
+    color: colors.black,
+  },
+  subTitle: {
+    textAlign: 'center',
+    marginVertical: normalize(10),
+    fontSize: normalize(13),
+  },
+  inputContent: {
+    marginVertical: normalize(3),
+  },
+});
 export default SignUp;

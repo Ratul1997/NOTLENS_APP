@@ -14,7 +14,10 @@ import Login from './container/authentication/Login';
 import SignUp from './container/authentication/SignUp';
 import auth from '@react-native-firebase/auth';
 import {AuthContext} from './contexts/AuthProvider';
-
+import ImageListViewer from './components/imageViewer/ImageListViewer';
+import ProductUpload from './container/ProductUpload';
+import MobileAuth from './container/authentication/mobileAuth';
+import OtpScreen from './container/authentication/OtpScreen'
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -107,7 +110,7 @@ const TabNav = props => {
 
       <Tab.Screen
         name="Camera"
-        component={defaultScreen}
+        component={ProductUpload}
         options={{
           tabBarIcon: ({focused}) => {
             return (
@@ -127,7 +130,6 @@ const TabNav = props => {
           tabBarButton: props => <CustomTabBarButton {...props} />,
         }}
       />
-
       <Tab.Screen
         name="Notifications"
         component={defaultScreen}
@@ -185,7 +187,7 @@ const AppNavigation = () => {
   };
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-   
+
     return subscriber; // unsubscribe on unmount
   }, []);
   if (initializing) return null;
@@ -195,8 +197,11 @@ const AppNavigation = () => {
       screenOptions={{headerShown: false}}>
       <Stack.Screen name="HomeNav" component={TabNav} />
       <Stack.Screen name="LandingNav" component={LandingPage} />
-      <Stack.Screen name="LoginNav" component={Login} />
+      <Stack.Screen name="LoginNav" component={MobileAuth} />
+      <Stack.Screen name="OtpNav" component={OtpScreen} />
+
       <Stack.Screen name="SignUpNav" component={SignUp} />
+      <Stack.Screen name="ImageList" component={ImageListViewer} />
     </Stack.Navigator>
   );
 };

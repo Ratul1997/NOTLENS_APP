@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Text, View, TouchableOpacity} from 'react-native';
 import {colors, theme} from '../configs/colors';
-import {getFontFamily, normalize} from '../styles/utilityStyle';
+import {getFontFamily, normalize, shadow} from '../styles/utilityStyle';
 
 export default class CustomButton extends Component {
   render() {
@@ -16,6 +16,7 @@ export default class CustomButton extends Component {
       padding,
       borderRadius,
       borderWidth,
+      color,
     } = this.props;
     const borders = bordered
       ? {
@@ -40,11 +41,12 @@ export default class CustomButton extends Component {
           alignItems: 'center',
           ...borders,
           ...backgroundColors,
+          ...shadow,
         }}
         onPress={onPress}>
         <Text
           style={{
-            color: colors.white,
+            color: color?color:colors.white,
             fontSize: fontSize ?? normalize(15),
             fontFamily: getFontFamily(),
             fontWeight: fontWeight ?? '500',
