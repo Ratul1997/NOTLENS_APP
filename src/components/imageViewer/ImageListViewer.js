@@ -31,11 +31,12 @@ export default class ImageListViewer extends Component {
   };
   renderItem = ({item, index}) => {
     console.log(item.path);
+
     return (
       <TouchableOpacity
         style={{marginVertical: 10}}
         onPress={() => this.onPressImage(index)}>
-        <ScaledImage uri={item.path} />
+        <ScaledImage uri={item.path ?? item.url} />
       </TouchableOpacity>
     );
   };

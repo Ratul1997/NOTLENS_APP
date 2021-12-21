@@ -4,6 +4,7 @@ import {colors, theme} from '../../configs/colors';
 import {
   getFontFamily,
   getHeightWidthOfScreen,
+  normalize,
   shadow,
 } from '../../styles/utilityStyle';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -13,12 +14,12 @@ export default function ProductItemComponent() {
     <Pressable
       style={{
         backgroundColor: colors.white,
-        borderRadius: 20,
+        borderRadius: normalize(20),
         width: '45%',
-        height: 250,
-        marginHorizontal: 10,
-        padding: 15,
-        marginVertical: 15,
+        height: normalize(210),
+        marginHorizontal: normalize(8),
+        padding: normalize(13),
+        marginVertical: normalize(13),
         ...shadow,
       }}>
       <View style={{height: '40%', backgroundColor: 'transparent'}}></View>
@@ -32,7 +33,7 @@ export default function ProductItemComponent() {
           <Text
             style={{
               fontFamily: getFontFamily(),
-              fontSize: 14,
+              fontSize: normalize(12),
               color: theme.fontColor,
               opacity: 0.8,
               fontWeight: '600',
@@ -44,7 +45,7 @@ export default function ProductItemComponent() {
           <Text
             style={{
               fontFamily: getFontFamily(),
-              fontSize: 14,
+              fontSize: normalize(12),
               color: theme.fontColor,
               opacity: 0.8,
               fontWeight: '600',
@@ -70,7 +71,7 @@ export default function ProductItemComponent() {
             <Text
               style={{
                 fontFamily: getFontFamily(),
-                fontSize: 12,
+                fontSize: normalize(10),
                 color: colors.white,
                 paddingVertical: 3,
               }}>
@@ -89,7 +90,7 @@ export default function ProductItemComponent() {
             <Text
               style={{
                 fontFamily: getFontFamily(),
-                fontSize: 12,
+                fontSize: normalize(10),
                 color: colors.white,
                 paddingVertical: 3,
                 fontWeight: 'bold',
@@ -110,7 +111,7 @@ export default function ProductItemComponent() {
         <View style={{width: '75%'}}>
           <Text
             style={{
-              fontSize: 13,
+              fontSize: normalize(11),
               fontFamily: getFontFamily(),
               color: theme.fontColor,
               opacity: 0.6,
@@ -118,7 +119,7 @@ export default function ProductItemComponent() {
             Tk{' '}
             <Text
               style={{
-                fontSize: 25,
+                fontSize: normalize(22),
                 fontFamily: getFontFamily(),
                 color: colors.black,
               }}>
@@ -131,8 +132,8 @@ export default function ProductItemComponent() {
             style={{
               borderColor: colors.blue,
               borderWidth: 1,
-              height: 30,
-              width: 30,
+              height: normalize(27),
+              width: normalize(27),
               borderRadius: 50,
               justifyContent: 'center',
               alignItems: 'center',
@@ -140,8 +141,8 @@ export default function ProductItemComponent() {
             }}>
             <FontAwesome
               color={colors.blue}
-              size={13}
-              style={{padding: 4}}
+              size={normalize(12)}
+              style={{padding: normalize(2)}}
               name="money"
             />
           </TouchableOpacity>
