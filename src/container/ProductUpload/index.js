@@ -11,10 +11,10 @@ import ImagePlaceHolders from './ImagePlaceHolders';
 import CustomTextInput from '../../components/CustomTextInput';
 import ProductTags from './ProductTags';
 import CustomButton from '../../components/CustomButton';
-import userFunctions from '../../customFunctions.js/userFunctions';
+import userFunctions from '../../customFunctions/userFunctions';
 import {isStringEmpty} from '../../utility/utils';
 import {ProductDetailsModel} from '../../model/productModels';
-import productFunctions from '../../customFunctions.js/productFunctions';
+import productFunctions from '../../customFunctions/productFunctions';
 
 const uid = 1;
 export default function index({navigation}) {

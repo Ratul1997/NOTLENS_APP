@@ -11,6 +11,8 @@ import {normalize} from './styles/utilityStyle';
 import Home from './container/Home/Home';
 import ProductUpload from './container/ProductUpload';
 import ImageListViewer from './components/imageViewer/ImageListViewer';
+import ProductDetails from './container/ProductDetails';
+
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -177,6 +179,7 @@ const AppNavigation = () => {
       screenOptions={{headerShown: false}}>
       <Stack.Screen name="HomeNav" component={TabNav} />
       <Stack.Screen name="ImageList" component={ImageListViewer} />
+      <Stack.Screen name="ProductDetails" component={ProductDetails} />
     </Stack.Navigator>
   );
 };

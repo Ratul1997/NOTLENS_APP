@@ -14,6 +14,6 @@ export const colors = {
 export const theme = {
   primaryColor: colors.blue,
   secondaryColor: colors.cyan,
-  backgroundColor: colors.grayishWhite,
+  backgroundColor: colors.white,
   fontColor: colors.lightBlack,
 };

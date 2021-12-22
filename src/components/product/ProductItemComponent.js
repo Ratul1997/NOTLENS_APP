@@ -1,33 +1,56 @@
-import React from 'react';
-import {View, Text, Pressable, TouchableOpacity} from 'react-native';
-import {colors, theme} from '../../configs/colors';
+import React from 'react'
+import {View, Text, Pressable, TouchableOpacity} from 'react-native'
+import {colors, theme} from '../../configs/colors'
 import {
   getFontFamily,
   getHeightWidthOfScreen,
   normalize,
   shadow,
-} from '../../styles/utilityStyle';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-const [HEIGHT, WIDTH] = getHeightWidthOfScreen();
-export default function ProductItemComponent() {
+} from '../../styles/utilityStyle'
+import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import CacheImageComponent from '../imageViewer/CacheImageComponent'
+const [HEIGHT, WIDTH] = getHeightWidthOfScreen()
+export default function ProductItemComponent ({
+  title,
+  basePrice,
+  imageUrl,
+  onPress,
+}) {
   return (
     <Pressable
       style={{
         backgroundColor: colors.white,
-        borderRadius: normalize(20),
+        borderRadius: normalize(10),
         width: '45%',
-        height: normalize(210),
+        height: normalize(180),
         marginHorizontal: normalize(8),
-        padding: normalize(13),
+        // padding: normalize(13),
         marginVertical: normalize(13),
+        overflow: 'hidden',
+        paddingBottom: normalize(5),
         ...shadow,
-      }}>
-      <View style={{height: '40%', backgroundColor: 'transparent'}}></View>
+      }}
+      onPress={onPress}>
       <View
         style={{
-          height: '40%',
+          height: '55%',
+          backgroundColor: 'red',
+          borderRadius: normalize(10),
+          overflow: 'hidden',
+          ...shadow,
+        }}>
+        <CacheImageComponent
+          url={imageUrl}
+          styles={{height: '100%', width: '100%'}}
+        />
+      </View>
+      <View
+        style={{
+          height: '23%',
           backgroundColor: 'transparent',
           justifyContent: 'space-around',
+          paddingHorizontal: normalize(8),
+          marginTop: normalize(5),
         }}>
         <View>
           <Text
@@ -37,21 +60,10 @@ export default function ProductItemComponent() {
               color: theme.fontColor,
               opacity: 0.8,
               fontWeight: '600',
-              paddingTop: 4,
+              paddingVertical: 10,
             }}
             numberOfLines={1}>
-            Apple Product Ok
-          </Text>
-          <Text
-            style={{
-              fontFamily: getFontFamily(),
-              fontSize: normalize(12),
-              color: theme.fontColor,
-              opacity: 0.8,
-              fontWeight: '600',
-            }}
-            numberOfLines={1}>
-            Apple Product Ok
+            {title}
           </Text>
         </View>
         <View
@@ -103,10 +115,11 @@ export default function ProductItemComponent() {
       <View
         style={{
           backgroundColor: 'transparent',
-          height: '20%',
+          height: '16%',
           flexDirection: 'row',
           alignItems: 'center',
           marginVertical: 5,
+          paddingHorizontal: normalize(8),
         }}>
         <View style={{width: '75%'}}>
           <Text
@@ -123,11 +136,15 @@ export default function ProductItemComponent() {
                 fontFamily: getFontFamily(),
                 color: colors.black,
               }}>
-              350.00
+              {basePrice}
             </Text>
           </Text>
         </View>
-        <View style={{width: '25%', backgroundColor: 'transparent'}}>
+        <View
+          style={{
+            width: '25%',
+            backgroundColor: 'transparent',
+          }}>
           <TouchableOpacity
             style={{
               borderColor: colors.blue,
@@ -143,11 +160,11 @@ export default function ProductItemComponent() {
               color={colors.blue}
               size={normalize(12)}
               style={{padding: normalize(2)}}
-              name="money"
+              name='money'
             />
           </TouchableOpacity>
         </View>
       </View>
     </Pressable>
-  );
+  )
 }
