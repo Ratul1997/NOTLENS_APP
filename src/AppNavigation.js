@@ -7,7 +7,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {colors, theme} from './configs/colors';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import CustomIcons from './components/CustomIcons';
-import {normalize} from './styles/utilityStyle';
+import {normalize, shadow} from './styles/utilityStyle';
 import Home from './container/Home/Home';
 import LandingPage from './container/LadingPage/LandingPage';
 import Login from './container/authentication/Login';
@@ -17,7 +17,8 @@ import {AuthContext} from './contexts/AuthProvider';
 import ImageListViewer from './components/imageViewer/ImageListViewer';
 import ProductUpload from './container/ProductUpload';
 import MobileAuth from './container/authentication/mobileAuth';
-import OtpScreen from './container/authentication/OtpScreen'
+import OtpScreen from './container/authentication/OtpScreen';
+import UserProfileScreen from './container/userProfile'
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -35,12 +36,12 @@ const CustomTabBarButton = ({children, onPress}) => {
       }}
       onPress={onPress}>
       <View
-        style={{
+        style={[{
           width: normalize(50),
           height: normalize(50),
           borderRadius: normalize(25),
           backgroundColor: theme.primaryColor,
-        }}>
+        },shadow]}>
         {children}
       </View>
     </TouchableOpacity>
@@ -88,7 +89,7 @@ const TabNav = props => {
 
       <Tab.Screen
         name="Profile"
-        component={defaultScreen}
+        component={UserProfileScreen}
         options={{
           tabBarIcon: ({focused}) => {
             return (

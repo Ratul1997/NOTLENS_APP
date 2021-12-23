@@ -11,6 +11,7 @@ export default function CommonHeader({
   customBackgroundColor,
   leftAction,
   showRightIcon,
+  fontColor,
 }) {
   return (
     <View
@@ -18,7 +19,7 @@ export default function CommonHeader({
         backgroundColor: customBackgroundColor ?? theme.backgroundColor,
         height: normalize(45),
         flexDirection: 'row',
-        paddingHorizontal: normalize(7),
+        paddingHorizontal: normalize(10),
         marginBottom: normalize(7),
         alignItems: 'center',
       }}>
@@ -41,7 +42,7 @@ export default function CommonHeader({
         }}>
         <Text
           style={{
-            color: theme.fontColor,
+            color: fontColor ? fontColor : theme.fontColor,
             fontSize: normalize(18),
             fontFamily: getFontFamily(),
             fontWeight: 'bold',
@@ -51,17 +52,20 @@ export default function CommonHeader({
           {title}
         </Text>
       </View>
-      {showRightIcon && (
-        <View
-          style={{
-            width: '10%',
-            // backgroundColor: 'blue',
-            justifyContent: 'center',
-            alignItems: 'flex-end',
-          }}>
-          {RightIcon}
-        </View>
-      )}
+      {/* {showRightIcon && ( */}
+      <View
+        style={{
+          width: '10%',
+          // backgroundColor: 'blue',
+          justifyContent: 'center',
+          // alignItems: 'flex-end',
+        }}>
+        <RightIcon /> 
+        {/* Work as a tag  */}
+        {/* {RightIcon} */} 
+        {/* but not work as variable why? */}
+      </View>
+      {/* // )} */}
     </View>
   );
 }
