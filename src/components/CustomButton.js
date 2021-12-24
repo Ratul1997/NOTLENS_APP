@@ -1,7 +1,7 @@
-import React, {Component} from 'react'
-import {Text, View, TouchableOpacity, ActivityIndicator} from 'react-native'
-import {colors, theme} from '../configs/colors'
-import {getFontFamily, normalize} from '../styles/utilityStyle'
+import React, { Component } from 'react'
+import { Text, View, TouchableOpacity, ActivityIndicator } from 'react-native'
+import { colors, theme } from '../configs/colors'
+import { getFontFamily, normalize } from '../styles/utilityStyle'
 
 export default function CustomButton ({
   bordered,
@@ -16,20 +16,20 @@ export default function CustomButton ({
   borderWidth,
   isLoading,
   customStyle = {},
-  textColor,
+  textColor
 }) {
   const borders = bordered
     ? {
         borderColor: colors.lightGray,
-        borderWidth: borderWidth ?? 1,
+        borderWidth: borderWidth ?? 1
       }
     : {}
   const backgroundColors = filled
     ? {
-        backgroundColor: theme.primaryColor,
+        backgroundColor: theme.primaryColor
       }
     : {
-        backgroundColor: colors.white,
+        backgroundColor: colors.white
       }
   return (
     <TouchableOpacity
@@ -41,11 +41,12 @@ export default function CustomButton ({
           justifyContent: 'center',
           alignItems: 'center',
           ...borders,
-          ...backgroundColors,
+          ...backgroundColors
         },
-        customStyle,
+        customStyle
       ]}
-      onPress={onPress}>
+      onPress={onPress}
+    >
       {isLoading ? (
         <ActivityIndicator size='small' color={colors.white} />
       ) : (
@@ -54,11 +55,12 @@ export default function CustomButton ({
             color: textColor ? textColor : filled ? colors.white : colors.black,
             fontSize: fontSize ?? normalize(15),
             fontFamily: getFontFamily(),
-            fontWeight: fontWeight ?? '500',
-          }}>
+            fontWeight: fontWeight ?? '500'
+          }}
+        >
           {title}
         </Text>
-      </TouchableOpacity>
-    );
-  }
+      )}
+    </TouchableOpacity>
+  )
 }

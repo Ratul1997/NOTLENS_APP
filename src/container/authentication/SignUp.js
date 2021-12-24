@@ -18,7 +18,7 @@ import CustomHeader from '../../components/CommonHeader';
 import CustomIcons from '../../components/CustomIcons';
 import CustomTextInput from '../../components/CustomTextInput';
 import {userModel} from '../../model/userModel';
-import userFunctions from '../../customFunctions.js/userFunctions';
+import userFunctions from '../../customFunctions/userFunctions';
 const SignUp = ({navigation}) => {
   const [nidNumber, setNidNumber] = useState('');
   const [userName, setUserName] = useState('');
