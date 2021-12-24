@@ -7,8 +7,9 @@ import {
   TouchableWithoutFeedback,
   View
 } from 'react-native'
-import { SafeAreaView } from "react-native-safe-area-context";
+import { SafeAreaView } from 'react-native-safe-area-context'
 import CustomSearchComponent from '../../components/CustomSearchComponent'
+import Lottie from '../../components/loader/Lottie'
 import ProductItemComponent from '../../components/product/ProductItemComponent'
 import { colors, theme } from '../../configs/colors'
 import { homeTabCategories } from '../../constants/customData/HomeTab'
@@ -19,6 +20,7 @@ export default function Home ({ navigation }) {
   const [products, setProducts] = useState([])
   const [lastVisible, setLastVisible] = useState(null)
   const [loadMore, setLoadMore] = useState(true)
+  const [isLoading, setIsLoading] = useState(true)
   const LIMIT = 16
   useEffect(() => {
     const subscrbed = loadProducts()
@@ -35,6 +37,7 @@ export default function Home ({ navigation }) {
       )
       setLastVisible(lastVisible)
       setLoadMore(res.total < LIMIT ? false : true)
+      setIsLoading(false)
     } catch (error) {}
   }
 
@@ -112,16 +115,20 @@ export default function Home ({ navigation }) {
     >
       <CustomSearchComponent placeHolder='Search for anything' />
       {renderOptions()}
-      <FlatList
-        data={products}
-        style={{ paddingHorizontal: 10 }}
-        numColumns={2}
-        keyExtractor={(item, index) => item.id}
-        renderItem={renderItem}
-        onEndReached={loadMore && loadProducts(lastVisible)}
-        // onRefresh={() => loadProducts(null)}
-        // refreshing={}
-      />
+      {isLoading ? (
+        <Lottie />
+      ) : (
+        <FlatList
+          data={products}
+          style={{ paddingHorizontal: 10 }}
+          numColumns={2}
+          keyExtractor={(item, index) => item.id}
+          renderItem={renderItem}
+          onEndReached={loadMore && loadProducts(lastVisible)}
+          // onRefresh={() => loadProducts(null)}
+          // refreshing={}
+        />
+      )}
       {/* <View style={{flexDirection: 'row', paddingHorizontal: 10}}>
         <ProductItemComponent />
         <ProductItemComponent />
