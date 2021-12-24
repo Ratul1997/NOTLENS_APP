@@ -16,9 +16,10 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { colors, theme } from '../../configs/colors'
 import CustomIcons from '../../components/CustomIcons'
 import { normalize } from '../../styles/utilityStyle'
-import CustomHeader from "../../components/CommonHeader";
+import CustomHeader from '../../components/CommonHeader'
 export default function MessageList ({ navigation }) {
   const [messageList, setMessageList] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     const uid = 'SDSDSDSDSD'
@@ -57,14 +58,26 @@ export default function MessageList ({ navigation }) {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: theme.backgroundColor }}>
-      
-      <CustomHeader title="Chats" LeftIcon={LeftIconHeader()} />
-      <FlatList
-        data={messageList}
-        style={{ height: '100%' }}
-        renderItem={renderItem}
-        keyExtractor={item => item.uid}
-      />
+      <CustomHeader title='Chats' LeftIcon={LeftIconHeader()} />
+      {messageList.length === 0 ? (
+        <Text
+          style={{
+            color: theme.fontColor,
+            textAlign: 'center',
+            fontSize: normalize(10),
+            marginTop: normalize(10)
+          }}
+        >
+          No Chat Found
+        </Text>
+      ) : (
+        <FlatList
+          data={messageList}
+          style={{ height: '100%' }}
+          renderItem={renderItem}
+          keyExtractor={item => item.uid}
+        />
+      )}
     </SafeAreaView>
   )
 }
