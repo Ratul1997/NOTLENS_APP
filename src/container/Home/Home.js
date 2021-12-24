@@ -1,20 +1,20 @@
-import React, {Component, useState, useEffect} from 'react'
+import React, { Component, useState, useEffect } from 'react'
 import {
   FlatList,
   Pressable,
   Text,
   TouchableOpacity,
   TouchableWithoutFeedback,
-  View,
+  View
 } from 'react-native'
-import {SafeAreaView} from 'react-native-safe-area-context'
+import { SafeAreaView } from "react-native-safe-area-context";
 import CustomSearchComponent from '../../components/CustomSearchComponent'
 import ProductItemComponent from '../../components/product/ProductItemComponent'
-import {colors, theme} from '../../configs/colors'
-import {homeTabCategories} from '../../constants/customData/HomeTab'
+import { colors, theme } from '../../configs/colors'
+import { homeTabCategories } from '../../constants/customData/HomeTab'
 import productFunctions from '../../customFunctions/productFunctions'
-import {getFontFamily, normalize} from '../../styles/utilityStyle'
-export default function Home ({navigation}) {
+import { getFontFamily, normalize } from '../../styles/utilityStyle'
+export default function Home ({ navigation }) {
   const [selectedCategory, setSelectedCategory] = useState(1)
   const [products, setProducts] = useState([])
   const [lastVisible, setLastVisible] = useState(null)
@@ -31,7 +31,7 @@ export default function Home ({navigation}) {
       console.log(res, 'res')
 
       setProducts(
-        lastVisible === null ? [...res.data] : [...products, ...res.data],
+        lastVisible === null ? [...res.data] : [...products, ...res.data]
       )
       setLastVisible(lastVisible)
       setLoadMore(res.total < LIMIT ? false : true)
@@ -50,8 +50,9 @@ export default function Home ({navigation}) {
           paddingHorizontal: normalize(20),
           borderBottomColor: colors.gray,
           borderBottomWidth: 0.3,
-          marginVertical: normalize(10),
-        }}>
+          marginVertical: normalize(10)
+        }}
+      >
         {homeTabCategories.map((category, index) => {
           return (
             <Pressable
@@ -65,18 +66,20 @@ export default function Home ({navigation}) {
                   selectedCategory === index
                     ? theme.primaryColor
                     : 'transparent',
-                borderBottomWidth: selectedCategory === index ? 1 : 0,
+                borderBottomWidth: selectedCategory === index ? 1 : 0
               }}
               key={index}
-              onPress={() => setSelectedCategory(index)}>
+              onPress={() => setSelectedCategory(index)}
+            >
               <Text
                 style={{
                   color: theme.fontColor,
                   fontSize: normalize(11),
                   textAlign: 'center',
                   fontWeight: 'bold',
-                  fontFamily: getFontFamily(),
-                }}>
+                  fontFamily: getFontFamily()
+                }}
+              >
                 {category.title}
               </Text>
             </Pressable>
@@ -85,7 +88,7 @@ export default function Home ({navigation}) {
       </View>
     )
   }
-  const renderItem = ({item, index}) => {
+  const renderItem = ({ item, index }) => {
     return (
       <ProductItemComponent
         title={item.title}
@@ -93,7 +96,7 @@ export default function Home ({navigation}) {
         imageUrl={item.images[0].url}
         onPress={() =>
           navigation.navigate('ProductDetails', {
-            productId: item.id,
+            productId: item.id
           })
         }
       />
@@ -104,13 +107,14 @@ export default function Home ({navigation}) {
       style={{
         backgroundColor: theme.backgroundColor,
         flex: 1,
-        paddingTop: normalize(20),
-      }}>
+        paddingTop: normalize(20)
+      }}
+    >
       <CustomSearchComponent placeHolder='Search for anything' />
       {renderOptions()}
       <FlatList
         data={products}
-        style={{paddingHorizontal: 10}}
+        style={{ paddingHorizontal: 10 }}
         numColumns={2}
         keyExtractor={(item, index) => item.id}
         renderItem={renderItem}
