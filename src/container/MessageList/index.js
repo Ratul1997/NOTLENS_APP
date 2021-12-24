@@ -19,7 +19,6 @@ import { normalize } from '../../styles/utilityStyle'
 import CustomHeader from "../../components/CommonHeader";
 export default function MessageList ({ navigation }) {
   const [messageList, setMessageList] = useState([])
-  const [chatId, setChatId] = useState('')
 
   useEffect(() => {
     const uid = 'SDSDSDSDSD'
@@ -47,7 +46,6 @@ export default function MessageList ({ navigation }) {
         onPress={() => navigation.goBack()}
         style={{ justifyContent: 'center' }}
       >
-        {/* <CustomIcon name="ic_arrow_left" color="white" size={20} /> */}
         <CustomIcons.Ionicons
           name='chevron-back-sharp'
           color={colors.lightBlack}
