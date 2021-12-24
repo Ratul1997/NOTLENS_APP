@@ -1,46 +1,50 @@
-import React, {Component, useEffect} from 'react';
-import {Text, TouchableOpacity, View} from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import React, { Component, useEffect } from 'react'
+import { Text, TouchableOpacity, View } from 'react-native'
+import { useDispatch, useSelector } from 'react-redux'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {colors, theme} from './configs/colors';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import CustomIcons from './components/CustomIcons';
-import {normalize} from './styles/utilityStyle';
-import Home from './container/Home/Home';
-import ProductUpload from './container/ProductUpload';
-import ImageListViewer from './components/imageViewer/ImageListViewer';
-import ProductDetails from './container/ProductDetails';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { colors, theme } from './configs/colors'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import CustomIcons from './components/CustomIcons'
+import { normalize } from './styles/utilityStyle'
+import Home from './container/Home/Home'
+import ProductUpload from './container/ProductUpload'
+import ImageListViewer from './components/imageViewer/ImageListViewer'
+import ProductDetails from './container/ProductDetails'
+import MessageList from './container/MessageList'
+import MessageThread from './container/MessageThread'
 
-const Stack = createNativeStackNavigator();
-const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator()
+const Tab = createBottomTabNavigator()
 
 const defaultScreen = () => {
-  return <Text>Hi</Text>;
-};
+  return <Text>Hi</Text>
+}
 
-const CustomTabBarButton = ({children, onPress}) => {
+const CustomTabBarButton = ({ children, onPress }) => {
   return (
     <TouchableOpacity
       style={{
         top: normalize(-20),
         justifyContent: 'center',
-        alignItems: 'center',
+        alignItems: 'center'
       }}
-      onPress={onPress}>
+      onPress={onPress}
+    >
       <View
         style={{
           width: normalize(50),
           height: normalize(50),
           borderRadius: normalize(25),
-          backgroundColor: theme.primaryColor,
-        }}>
+          backgroundColor: theme.primaryColor
+        }}
+      >
         {children}
       </View>
     </TouchableOpacity>
-  );
-};
+  )
+}
 const TabNav = props => {
   return (
     <Tab.Navigator
@@ -55,133 +59,141 @@ const TabNav = props => {
             // borderRadius: 50,
             backgroundColor: colors.white,
 
-            justifyContent: 'center',
-          },
-        ],
-      }}>
+            justifyContent: 'center'
+          }
+        ]
+      }}
+    >
       <Tab.Screen
-        name="Home"
+        name='Home'
         component={Home}
         options={{
-          tabBarIcon: ({focused}) => {
+          tabBarIcon: ({ focused }) => {
             return (
               <SafeAreaView
                 style={{
                   justifyContent: 'center',
-                  alignItems: 'center',
-                }}>
+                  alignItems: 'center'
+                }}
+              >
                 <CustomIcons.AntDesign
-                  name="home"
+                  name='home'
                   size={normalize(20)}
                   color={focused ? theme.primaryColor : colors.black}
                 />
               </SafeAreaView>
-            );
-          },
+            )
+          }
         }}
       />
 
       <Tab.Screen
-        name="Profile"
+        name='Profile'
         component={defaultScreen}
         options={{
-          tabBarIcon: ({focused}) => {
+          tabBarIcon: ({ focused }) => {
             return (
               <SafeAreaView
                 style={{
                   justifyContent: 'center',
-                  alignItems: 'center',
-                }}>
+                  alignItems: 'center'
+                }}
+              >
                 <CustomIcons.Feather
-                  name="user"
+                  name='user'
                   size={normalize(20)}
                   color={focused ? theme.primaryColor : colors.black}
                 />
               </SafeAreaView>
-            );
-          },
+            )
+          }
         }}
       />
 
       <Tab.Screen
-        name="Camera"
+        name='Camera'
         component={ProductUpload}
         options={{
-          tabBarIcon: ({focused}) => {
+          tabBarIcon: ({ focused }) => {
             return (
               <SafeAreaView
                 style={{
                   justifyContent: 'center',
-                  alignItems: 'center',
-                }}>
+                  alignItems: 'center'
+                }}
+              >
                 <CustomIcons.Feather
-                  name="camera"
+                  name='camera'
                   size={normalize(20)}
                   color={colors.white}
                 />
               </SafeAreaView>
-            );
+            )
           },
-          tabBarButton: props => <CustomTabBarButton {...props} />,
+          tabBarButton: props => <CustomTabBarButton {...props} />
         }}
       />
 
       <Tab.Screen
-        name="Notifications"
+        name='Notifications'
         component={defaultScreen}
         options={{
-          tabBarIcon: ({focused}) => {
+          tabBarIcon: ({ focused }) => {
             return (
               <SafeAreaView
                 style={{
                   justifyContent: 'center',
-                  alignItems: 'center',
-                }}>
+                  alignItems: 'center'
+                }}
+              >
                 <CustomIcons.Ionicons
-                  name="notifications-outline"
+                  name='notifications-outline'
                   size={normalize(20)}
                   color={focused ? theme.primaryColor : colors.black}
                 />
               </SafeAreaView>
-            );
-          },
+            )
+          }
         }}
       />
 
       <Tab.Screen
-        name="Chat"
-        component={defaultScreen}
+        name='Chat'
+        component={MessageList}
         options={{
-          tabBarIcon: ({focused}) => {
+          tabBarIcon: ({ focused }) => {
             return (
               <SafeAreaView
                 style={{
                   justifyContent: 'center',
-                  alignItems: 'center',
-                }}>
+                  alignItems: 'center'
+                }}
+              >
                 <CustomIcons.Ionicons
-                  name="chatbubble-outline"
+                  name='chatbubble-outline'
                   size={normalize(20)}
                   color={focused ? theme.primaryColor : colors.black}
                 />
               </SafeAreaView>
-            );
-          },
+            )
+          }
         }}
       />
     </Tab.Navigator>
-  );
-};
+  )
+}
 const AppNavigation = () => {
   return (
     <Stack.Navigator
-      initialRouteName="HomeNav"
-      screenOptions={{headerShown: false}}>
-      <Stack.Screen name="HomeNav" component={TabNav} />
-      <Stack.Screen name="ImageList" component={ImageListViewer} />
-      <Stack.Screen name="ProductDetails" component={ProductDetails} />
+      initialRouteName='HomeNav'
+      screenOptions={{ headerShown: false }}
+    >
+      <Stack.Screen name='HomeNav' component={TabNav} />
+      <Stack.Screen name='ImageList' component={ImageListViewer} />
+      <Stack.Screen name='ProductDetails' component={ProductDetails} />
+      <Stack.Screen name='MessageThread' component={MessageThread} />
     </Stack.Navigator>
-  );
-};
+  )
+}
 
-export default AppNavigation;
+export default AppNavigation

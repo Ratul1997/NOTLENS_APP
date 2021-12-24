@@ -1,16 +1,16 @@
-import React, {Component} from 'react';
-import {Text, View, Pressable} from 'react-native';
-import {theme} from '../configs/colors';
-import {getFontFamily, normalize} from '../styles/utilityStyle';
+import React, { Component } from 'react'
+import { Text, View, Pressable } from 'react-native'
+import { theme } from '../configs/colors'
+import { getFontFamily, normalize } from '../styles/utilityStyle'
 
-export default function CommonHeader({
+export default function CommonHeader ({
   LeftIcon,
   RightIcon,
   title,
   alignLeft,
   customBackgroundColor,
   leftAction,
-  showRightIcon,
+  showRightIcon
 }) {
   return (
     <View
@@ -20,16 +20,18 @@ export default function CommonHeader({
         flexDirection: 'row',
         paddingHorizontal: normalize(7),
         marginBottom: normalize(7),
-        alignItems: 'center',
-      }}>
+        alignItems: 'center'
+      }}
+    >
       <Pressable
         onPress={() => {
-          leftAction?.();
+          leftAction?.()
         }}
         style={{
           width: '10%',
-          justifyContent: 'center',
-        }}>
+          justifyContent: 'center'
+        }}
+      >
         {LeftIcon}
       </Pressable>
       <View
@@ -37,8 +39,9 @@ export default function CommonHeader({
           width: '80%',
           backgroundColor: 'transparent',
           justifyContent: 'center',
-          alignItems: alignLeft ? 'flex-start' : 'center',
-        }}>
+          alignItems: alignLeft ? 'flex-start' : 'center'
+        }}
+      >
         <Text
           style={{
             color: theme.fontColor,
@@ -46,8 +49,9 @@ export default function CommonHeader({
             fontFamily: getFontFamily(),
             fontWeight: 'bold',
             textAlign: 'center',
-            opacity: 0.8,
-          }}>
+            opacity: 0.8
+          }}
+        >
           {title}
         </Text>
       </View>
@@ -57,11 +61,12 @@ export default function CommonHeader({
             width: '10%',
             // backgroundColor: 'blue',
             justifyContent: 'center',
-            alignItems: 'flex-end',
-          }}>
+            alignItems: 'flex-end'
+          }}
+        >
           {RightIcon}
         </View>
       )}
     </View>
-  );
+  )
 }
