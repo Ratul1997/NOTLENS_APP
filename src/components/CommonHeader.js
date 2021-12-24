@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
-import {Text, View, Pressable} from 'react-native';
-import {theme} from '../configs/colors';
-import {getFontFamily, normalize} from '../styles/utilityStyle';
+import React, { Component } from 'react'
+import { Text, View, Pressable } from 'react-native'
+import { theme } from '../configs/colors'
+import { getFontFamily, normalize } from '../styles/utilityStyle'
 
-export default function CommonHeader({
+export default function CommonHeader ({
   LeftIcon,
   RightIcon,
   title,
@@ -11,6 +11,7 @@ export default function CommonHeader({
   customBackgroundColor,
   leftAction,
   showRightIcon,
+  fontColor,
 }) {
   return (
     <View
@@ -18,18 +19,20 @@ export default function CommonHeader({
         backgroundColor: customBackgroundColor ?? theme.backgroundColor,
         height: normalize(45),
         flexDirection: 'row',
-        paddingHorizontal: normalize(7),
+        paddingHorizontal: normalize(10),
         marginBottom: normalize(7),
-        alignItems: 'center',
-      }}>
+        alignItems: 'center'
+      }}
+    >
       <Pressable
         onPress={() => {
-          leftAction?.();
+          leftAction?.()
         }}
         style={{
           width: '10%',
-          justifyContent: 'center',
-        }}>
+          justifyContent: 'center'
+        }}
+      >
         {LeftIcon}
       </Pressable>
       <View
@@ -37,17 +40,19 @@ export default function CommonHeader({
           width: '80%',
           backgroundColor: 'transparent',
           justifyContent: 'center',
-          alignItems: alignLeft ? 'flex-start' : 'center',
-        }}>
+          alignItems: alignLeft ? 'flex-start' : 'center'
+        }}
+      >
         <Text
           style={{
-            color: theme.fontColor,
+            color: fontColor ? fontColor : theme.fontColor,
             fontSize: normalize(18),
             fontFamily: getFontFamily(),
             fontWeight: 'bold',
             textAlign: 'center',
-            opacity: 0.8,
-          }}>
+            opacity: 0.8
+          }}
+        >
           {title}
         </Text>
       </View>
@@ -57,11 +62,12 @@ export default function CommonHeader({
             width: '10%',
             // backgroundColor: 'blue',
             justifyContent: 'center',
-            alignItems: 'flex-end',
-          }}>
+            alignItems: 'flex-end'
+          }}
+        >
           {RightIcon}
         </View>
       )}
     </View>
-  );
+  )
 }

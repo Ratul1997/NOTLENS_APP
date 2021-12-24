@@ -1,27 +1,27 @@
-import React, {useState, useRef} from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import DropdownAlert from 'react-native-dropdownalert';
-import {colors, theme} from '../../configs/colors';
-import CustomHeader from '../../components/CommonHeader';
-import CustomIcons from '../../components/CustomIcons';
-import {getFontFamily, normalize} from '../../styles/utilityStyle';
-import ImagePlaceHolders from './ImagePlaceHolders';
-import CustomTextInput from '../../components/CustomTextInput';
-import ProductTags from './ProductTags';
-import CustomButton from '../../components/CustomButton';
-import userFunctions from '../../customFunctions.js/userFunctions';
-import {isStringEmpty} from '../../utility/utils';
-import {ProductDetailsModel} from '../../model/productModels';
-import productFunctions from '../../customFunctions.js/productFunctions';
+import React, { useState, useRef } from "react";
+import { View, Text, TouchableOpacity } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import DropdownAlert from "react-native-dropdownalert";
+import { colors, theme } from "../../configs/colors";
+import CustomHeader from "../../components/CommonHeader";
+import CustomIcons from "../../components/CustomIcons";
+import { getFontFamily, normalize } from "../../styles/utilityStyle";
+import ImagePlaceHolders from "./ImagePlaceHolders";
+import CustomTextInput from "../../components/CustomTextInput";
+import ProductTags from "./ProductTags";
+import CustomButton from "../../components/CustomButton";
+import userFunctions from "../../customFunctions/userFunctions";
+import { isStringEmpty } from "../../utility/utils";
+import { ProductDetailsModel } from "../../model/productModels";
+import productFunctions from "../../customFunctions/productFunctions";
 
 const uid = 1;
-export default function index({navigation}) {
+export default function index({ navigation }) {
   const initialState = {
-    title: '',
-    basePrice: '',
-    productDetails: '',
+    title: "",
+    basePrice: "",
+    productDetails: "",
   };
   const [images, setImages] = useState([]);
   const [productTags, setProductTags] = useState([]);
@@ -38,7 +38,8 @@ export default function index({navigation}) {
     return (
       <TouchableOpacity
         onPress={() => navigation.goBack()}
-        style={{justifyContent: 'center'}}>
+        style={{ justifyContent: "center" }}
+      >
         {/* <CustomIcon name="ic_arrow_left" color="white" size={20} /> */}
         <CustomIcons.Ionicons
           name="chevron-back-sharp"
@@ -53,9 +54,9 @@ export default function index({navigation}) {
     console.log(productTags, images, state);
     if (images.length < 0) {
       return dropDownRef.current.alertWithType(
-        'error',
-        'Error',
-        'Please Select Minimum four images',
+        "error",
+        "Error",
+        "Please Select Minimum four images"
       );
     }
     if (
@@ -64,23 +65,23 @@ export default function index({navigation}) {
       isStringEmpty(state.title)
     ) {
       return dropDownRef.current.alertWithType(
-        'error',
-        'Error',
-        'Product title, product details and base price are required!',
+        "error",
+        "Error",
+        "Product title, product details and base price are required!"
       );
     }
     if (productTags.length < 2) {
       return dropDownRef.current.alertWithType(
-        'error',
-        'Error',
-        'Minimum 2 tags are required!',
+        "error",
+        "Error",
+        "Minimum 2 tags are required!"
       );
     }
     setLoading(true);
     try {
       const uploadImages = await userFunctions.multipleFileUpload(
         images,
-        'images',
+        "images"
       );
       const productData = ProductDetailsModel(
         state.title,
@@ -88,16 +89,16 @@ export default function index({navigation}) {
         uploadImages,
         productTags,
         state.basePrice,
-        'Raatul Bhowmick',
+        "Raatul Bhowmick",
         null,
-        uid,
+        uid
       );
 
       await productFunctions.productUpload(productData);
       dropDownRef.current.alertWithType(
-        'success',
-        'Success',
-        'Successfully Uploaded',
+        "success",
+        "Success",
+        "Successfully Uploaded"
       );
     } catch (error) {
       console.log(error);
@@ -106,7 +107,7 @@ export default function index({navigation}) {
     }
   };
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: theme.backgroundColor}}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: theme.backgroundColor }}>
       <DropdownAlert ref={dropDownRef} />
       <CustomHeader title="Seller" LeftIcon={LeftIconHeader()} />
       <KeyboardAwareScrollView>
@@ -116,29 +117,29 @@ export default function index({navigation}) {
             setImages={setImages}
             navigation={navigation}
           />
-          <View style={{marginVertical: normalize(8)}}>
+          <View style={{ marginVertical: normalize(8) }}>
             <CustomTextInput
-              placeholder={'Product Title'}
+              placeholder={"Product Title"}
               borderRadius={normalize(6)}
-              onChangeText={text => onChange('title', text)}
+              onChangeText={(text) => onChange("title", text)}
               value={state.title}
             />
           </View>
-          <View style={{marginVertical: normalize(8)}}>
+          <View style={{ marginVertical: normalize(8) }}>
             <CustomTextInput
-              placeholder={'Base Price'}
+              placeholder={"Base Price"}
               borderRadius={normalize(6)}
-              keyboardType={'number-pad'}
-              onChangeText={text => onChange('basePrice', text)}
+              keyboardType={"number-pad"}
+              onChangeText={(text) => onChange("basePrice", text)}
               value={state.basePrice}
             />
           </View>
-          <View style={{marginVertical: normalize(8)}}>
+          <View style={{ marginVertical: normalize(8) }}>
             <CustomTextInput
-              placeholder={'Product Details'}
+              placeholder={"Product Details"}
               borderRadius={normalize(6)}
               multiline={true}
-              onChangeText={text => onChange('productDetails', text)}
+              onChangeText={(text) => onChange("productDetails", text)}
               value={state.productDetails}
             />
           </View>
@@ -148,13 +149,14 @@ export default function index({navigation}) {
           />
           <View
             style={{
-              alignItems: 'center',
+              alignItems: "center",
               marginVertical: normalize(15),
-            }}>
+            }}
+          >
             <CustomButton
-              width={'90%'}
+              width={"90%"}
               filled={true}
-              title={'Post Product'}
+              title={"Post Product"}
               onPress={loading ? null : onUploadProduct}
               borderRadius={normalize(10)}
               isLoading={loading}
