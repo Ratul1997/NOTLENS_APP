@@ -1,5 +1,6 @@
 import {Platform} from 'react-native';
 import storage from '@react-native-firebase/storage';
+import PromiseModule from '../helpers/PromiseModule';
 const multipleFileUpload = async (files, type) => {
   return await Promise.all(
     files.map(async file => {
@@ -34,5 +35,10 @@ const multipleFileUpload = async (files, type) => {
   );
 };
 
-const userFunctions = {multipleFileUpload};
+const createUser = async userData => {
+  // console.log('user',userData)
+  return await PromiseModule.storeData('Users', userData);
+};
+
+const userFunctions = {multipleFileUpload, createUser};
 export default userFunctions;

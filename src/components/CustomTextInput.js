@@ -50,7 +50,7 @@ export default function CustomTextInput({
             name={iconName}
             color="gray"
             size={size}
-            style={{width: '6%'}}
+            style={{width: '8%', paddingHorizontal: normalize(5)}}
             onPress={iconOnPress}
           />
         )}
