@@ -1,35 +1,39 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   View,
   Text,
   TouchableOpacity,
   FlatList,
   Image,
-  Pressable,
+  Pressable
 } from 'react-native'
-import {SafeAreaView} from 'react-native-safe-area-context'
+import { SafeAreaView } from 'react-native-safe-area-context'
 import CustomIcons from '../../components/CustomIcons'
-import {colors, theme} from '../../configs/colors'
+import { colors, theme } from '../../configs/colors'
 import {
   getHeightWidthOfScreen,
   normalize,
-  shadow,
+  shadow
 } from '../../styles/utilityStyle'
 import CustomHeader from '../../components/CommonHeader'
 import productFunctions from '../../customFunctions/productFunctions'
 import CacheImageComponent from '../../components/imageViewer/CacheImageComponent'
 
-import {SwiperFlatList} from 'react-native-swiper-flatlist'
+import { SwiperFlatList } from 'react-native-swiper-flatlist'
 import CustomButton from '../../components/CustomButton'
 import BottomSheet from '../../components/modals/BottomSheet'
 import ProductInfo from './ProductInfo'
 const [HEIGHT, WIDTH] = getHeightWidthOfScreen()
-export default function index ({route, navigation}) {
+export default function index ({ route, navigation }) {
   const [productDetails, setProductDetails] = useState({})
   const [isBottomSheetOpen, setBottomSheet] = useState(false)
   useEffect(() => {
-    const subscrbed = loadProductDetails()
-    return () => subscrbed
+    if (route.params?.productDetails) {
+      const productDetails = JSON.parse(route.params.productDetails)
+      setProductDetails(productDetails)
+    }
+    // const subscrbed = loadProductDetails()
+    // return () => subscrbed
   }, [])
 
   const toggleBottomSheet = () => setBottomSheet(!isBottomSheetOpen)
@@ -37,12 +41,25 @@ export default function index ({route, navigation}) {
   const loadProductDetails = async () => {
     try {
       const response = await productFunctions.getProductDetailsById(
-        route?.params?.productId,
+        route?.params?.productId
       )
-      setProductDetails({...response})
+      setProductDetails({ ...response })
     } catch (error) {
       console.log(error)
     }
+  }
+
+  const onBidPress = () => {
+    toggleBottomSheet()
+    navigation.navigate('Auction', {
+      productId: productDetails.id,
+      productDetails: JSON.stringify(productDetails),
+      basePrice: productDetails.basePrice
+    })
+  }
+  const onQAndA = () => {
+    // navigation.navigate
+    toggleBottomSheet()
   }
 
   const LeftIconHeader = () => {
@@ -56,8 +73,9 @@ export default function index ({route, navigation}) {
           top: 10,
           backgroundColor: theme.backgroundColor,
           borderRadius: normalize(50),
-          ...shadow,
-        }}>
+          ...shadow
+        }}
+      >
         {/* <CustomIcon name="ic_arrow_left" color="white" size={20} /> */}
         <CustomIcons.Ionicons
           name='chevron-back-sharp'
@@ -68,22 +86,22 @@ export default function index ({route, navigation}) {
     )
   }
 
-  const renderItem = ({item, index}) => {
+  const renderItem = ({ item, index }) => {
     console.log(item.url)
     return (
       <Pressable onPress={toggleBottomSheet}>
         <Image
-          style={{height: HEIGHT, width: WIDTH}}
-          source={{uri: item.url}}
+          style={{ height: HEIGHT, width: WIDTH }}
+          source={{ uri: item.url }}
           resizeMode='contain'
         />
       </Pressable>
     )
   }
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: theme.backgroundColor}}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: theme.backgroundColor }}>
       <SwiperFlatList
-        style={{height: '100%', width: '100%', backgroundColor: colors.black}}
+        style={{ height: '100%', width: '100%', backgroundColor: colors.black }}
         data={productDetails.images}
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -92,13 +110,15 @@ export default function index ({route, navigation}) {
         // showPagination
       />
 
-      {/* <CustomButton
-        customStyle={{position: 'absolute', right: 10, top: 10, ...shadow}}
+      <CustomButton
+        customStyle={{ position: 'absolute', right: 10, top: 10, ...shadow }}
         width={'20%'}
-        title={'Bid'}
+        title={'Details'}
         borderRadius={normalize(8)}
-        filled
-      /> */}
+        // filled
+        bordered
+        onPress={toggleBottomSheet}
+      />
       {LeftIconHeader()}
       <BottomSheet modalVisible={isBottomSheetOpen} onClose={toggleBottomSheet}>
         {/* 
@@ -110,9 +130,14 @@ export default function index ({route, navigation}) {
             backgroundColor: theme.backgroundColor,
             height: HEIGHT / 1.3,
             borderTopRightRadius: normalize(30),
-            borderTopLeftRadius: normalize(30),
-          }}>
-          <ProductInfo />
+            borderTopLeftRadius: normalize(30)
+          }}
+        >
+          <ProductInfo
+            onBidNow={onBidPress}
+            onQandA={onQAndA}
+            productDetails={productDetails}
+          />
         </View>
       </BottomSheet>
     </SafeAreaView>

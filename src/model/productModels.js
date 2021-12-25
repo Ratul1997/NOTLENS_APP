@@ -7,6 +7,8 @@ export const ProductDetailsModel = (
   userFullName,
   userPhotoUrl,
   userId,
+  endDate,
+  startDate
 ) => {
   return {
     title: productTitle,
@@ -16,9 +18,11 @@ export const ProductDetailsModel = (
     basePrice: parseFloat(basePrice),
     postedBy: {
       fullName: userFullName ?? null,
-      photoUrl: userPhotoUrl ?? null,
+      photoUrl: userPhotoUrl ?? null
     },
     userId: userId,
     postedOn: new Date(),
-  };
-};
+    endDate: endDate,
+    startDate: startDate
+  }
+}

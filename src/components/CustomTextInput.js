@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
-import {Text, View, TextInput} from 'react-native';
-import {colors, theme} from '../configs/colors';
-import {getFontFamily, normalize} from '../styles/utilityStyle';
-export default function CustomTextInput({
+import React, { Component } from 'react'
+import { Text, View, TextInput } from 'react-native'
+import { colors, theme } from '../configs/colors'
+import { getFontFamily, normalize } from '../styles/utilityStyle'
+export default function CustomTextInput ({
   Icon,
   title,
   placeholder,
@@ -20,16 +20,20 @@ export default function CustomTextInput({
   iconColor,
   keyboardType,
   onKeyPress,
+  customWidth = '90%'
 }) {
   return (
-    <View style={{alignSelf: 'center', width: '90%', marginVertical: 1}}>
+    <View
+      style={{ alignSelf: 'center', width: customWidth, marginVertical: 1 }}
+    >
       {title && (
         <Text
           style={{
             color: theme.fontColor,
             marginVertical: normalize(5),
-            fontFamily: getFontFamily(),
-          }}>
+            fontFamily: getFontFamily()
+          }}
+        >
           {title}
         </Text>
       )}
@@ -43,14 +47,15 @@ export default function CustomTextInput({
           justifyContent: 'space-between',
           borderRadius: normalize(borderRadius),
           borderWidth: 1,
-          borderColor: colors.lightGray,
-        }}>
+          borderColor: colors.lightGray
+        }}
+      >
         {leftIcon && Icon && (
           <Icon
             name={iconName}
-            color="gray"
+            color='gray'
             size={size}
-            style={{width: '8%', paddingHorizontal: normalize(5)}}
+            style={{ width: '8%', paddingHorizontal: normalize(5) }}
             onPress={iconOnPress}
           />
         )}
@@ -63,7 +68,7 @@ export default function CustomTextInput({
             color: 'black',
             opacity: 1,
             textAlignVertical: multiline ? 'top' : 'center',
-            fontFamily: getFontFamily(),
+            fontFamily: getFontFamily()
           }}
           numberOfLines={numberOfLines ?? 1}
           onChangeText={onChangeText}
@@ -79,11 +84,11 @@ export default function CustomTextInput({
             name={iconName}
             color={iconColor ?? 'gray'}
             size={size}
-            style={{width: '6%'}}
+            style={{ width: '6%' }}
             onPress={iconOnPress}
           />
         )}
       </View>
     </View>
-  );
+  )
 }

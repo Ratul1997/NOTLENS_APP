@@ -22,6 +22,7 @@ import UserProfileScreen from './container/userProfile'
 import ProductDetails from './container/ProductDetails'
 import MessageList from './container/MessageList'
 import MessageThread from './container/MessageThread'
+import Auction from './container/auction'
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
 
@@ -219,6 +220,7 @@ const AppNavigation = () => {
       <Stack.Screen name='MessageThread' component={MessageThread} />
       <Stack.Screen name='SignUpNav' component={SignUp} />
       <Stack.Screen name='ImageList' component={ImageListViewer} />
+      <Stack.Screen name='Auction' component={Auction} />
     </Stack.Navigator>
   )
 }

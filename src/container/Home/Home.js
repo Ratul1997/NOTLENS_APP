@@ -99,7 +99,8 @@ export default function Home ({ navigation }) {
         imageUrl={item.images[0].url}
         onPress={() =>
           navigation.navigate('ProductDetails', {
-            productId: item.id
+            productId: item.id,
+            productDetails: JSON.stringify(item)
           })
         }
       />
