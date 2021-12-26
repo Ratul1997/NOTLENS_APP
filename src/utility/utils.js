@@ -1,4 +1,4 @@
-// import auth from '@react-native-firebase/auth';
+import auth from '@react-native-firebase/auth';
 export const checkValidEmail = email => {
   const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
   return re.test(String(email).toLowerCase())
@@ -9,9 +9,9 @@ export const checkValidPassword = password => {
   return re.test(password)
 }
 
-// export const getUserId = () => {
-//   return auth().currentUser ? auth().currentUser.uid : null;
-// };
+export const getUserId = () => {
+  return auth().currentUser ? auth().currentUser.uid : null;
+};
 
 export const getAvatarTitle = string => {
   const strArray = string.split(' ')

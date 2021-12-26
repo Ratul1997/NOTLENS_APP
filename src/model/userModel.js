@@ -4,13 +4,13 @@ export const userModel = (
   email,
   phoneNumber,
   nId,
-  userId = null,
+  uid,
   profileImage = null,
   activeRole = 'Bidder',
+
 ) => {
   //   console.log('userFUn', userData);
   return {
-    userId: userId,
     userName: userName,
     fullName: fullName,
     email: email,
@@ -19,5 +19,6 @@ export const userModel = (
     profileImage: profileImage,
     activeRole: activeRole,
     createdOn: new Date(),
-  };
-};
+    uid: uid
+  }
+}

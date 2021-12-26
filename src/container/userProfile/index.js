@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Text, View, ImageBackground, StyleSheet } from 'react-native'
 import { theme, colors } from '../../configs/colors'
 import image from '../../assets/images/6.jpg'
@@ -7,7 +7,24 @@ import UserImageBlock from './UserImageBlock'
 import { TouchableOpacity } from 'react-native'
 import CustomIcons from '../../components/CustomIcons'
 import UserOptions from './UserOptions'
+import { getUserId } from '../../utility/utils'
+import userFunctions from '../../customFunctions/userFunctions'
 const index = ({ navigation }) => {
+  const [profileDetails, setProfileDetails] = useState({})
+
+  useEffect(() => {
+    loadUserInfo()
+  }, [])
+  const loadUserInfo = async () => {
+    const uid = getUserId()
+    try {
+      const userDetails = await userFunctions.getUserInfo(uid)
+
+      setProfileDetails(userDetails.userData)
+    } catch (error) {
+      console.log(error)
+    }
+  }
   const LeftIconHeader = () => {
     return (
       <TouchableOpacity
@@ -46,10 +63,11 @@ const index = ({ navigation }) => {
           <UserImageBlock
             LeftIconHeader={LeftIconHeader()}
             RightIconHeader={RightIconHeader()}
+            profileDetails={profileDetails}
           />
         </View>
         <View style={styles.row2}>
-          <UserOptions />
+          <UserOptions navigation={navigation} />
         </View>
       </ImageBackground>
     </View>

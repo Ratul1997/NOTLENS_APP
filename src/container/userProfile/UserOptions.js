@@ -1,10 +1,12 @@
-import React from 'react';
-import {View, StyleSheet} from 'react-native';
-import CustomPressableText from '../../components/customPressableText';
-import CustomIcons from '../../components/CustomIcons';
-import {colors} from '../../configs/colors';
-import {normalize} from '../../styles/utilityStyle';
-const UserOptions = ({navigation}) => {
+import React from 'react'
+import { View, StyleSheet } from 'react-native'
+import CustomPressableText from '../../components/customPressableText'
+import CustomIcons from '../../components/CustomIcons'
+import { colors } from '../../configs/colors'
+import { normalize } from '../../styles/utilityStyle'
+import firestore from '@react-native-firebase/firestore'
+import auth from '@react-native-firebase/auth'
+const UserOptions = ({ navigation }) => {
   return (
     <View>
       <View style={styles.content}>
@@ -20,7 +22,7 @@ const UserOptions = ({navigation}) => {
           iconName={'plus'}
           iconColor={colors.lime}
           iconSize={20}
-          onPress={() => navigation.navigate('OtpNav')}
+          // onPress={() => navigation.navigate('OtpNav')}
         />
       </View>
       <View style={styles.content}>
@@ -36,7 +38,7 @@ const UserOptions = ({navigation}) => {
           iconName={'thumbtack'}
           iconColor={colors.red}
           iconSize={20}
-          onPress={() => navigation.navigate('OtpNav')}
+          // onPress={() => navigation.navigate('OtpNav')}
         />
       </View>
       <View style={styles.content}>
@@ -52,7 +54,7 @@ const UserOptions = ({navigation}) => {
           iconName={'clipboard-list'}
           iconColor={colors.green}
           iconSize={20}
-          onPress={() => navigation.navigate('OtpNav')}
+          // onPress={() => navigation.navigate('OtpNav')}
         />
       </View>
 
@@ -69,7 +71,7 @@ const UserOptions = ({navigation}) => {
           iconName={'dollar-sign'}
           iconColor={colors.orange}
           iconSize={20}
-          onPress={() => navigation.navigate('OtpNav')}
+          // onPress={() => navigation.navigate('OtpNav')}
         />
       </View>
       <View style={styles.content}>
@@ -85,7 +87,7 @@ const UserOptions = ({navigation}) => {
           iconName={'question-circle'}
           iconColor={colors.yellow}
           iconSize={20}
-          onPress={() => navigation.navigate('OtpNav')}
+          // onPress={() => navigation.navigate('OtpNav')}
         />
       </View>
       <View style={styles.content}>
@@ -101,18 +103,24 @@ const UserOptions = ({navigation}) => {
           iconName={'log-out-outline'}
           iconColor={colors.steelBlue}
           iconSize={25}
-          onPress={() => navigation.navigate('OtpNav')}
+          onPress={async () => {
+            await auth().signOut()
+            navigation.reset({
+              index: 0,
+              routes: [{ name: 'LoginNav' }]
+            })
+          }}
         />
       </View>
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   content: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: normalize(10),
-  },
-});
-export default UserOptions;
+    marginBottom: normalize(10)
+  }
+})
+export default UserOptions

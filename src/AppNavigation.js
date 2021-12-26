@@ -23,6 +23,7 @@ import ProductDetails from './container/ProductDetails'
 import MessageList from './container/MessageList'
 import MessageThread from './container/MessageThread'
 import Auction from './container/auction'
+import { getUserId } from './utility/utils'
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
 
@@ -193,23 +194,24 @@ const TabNav = props => {
   )
 }
 const AppNavigation = () => {
-  const [initializing, setInitializing] = useState(true)
-  const [user, setUser] = useState()
-  // Handle user state changes
-  const onAuthStateChanged = user => {
-    setUser(user)
-    // console.log(user.uid);
-    if (initializing) setInitializing(false)
-  }
-  useEffect(() => {
-    const subscriber = auth().onAuthStateChanged(onAuthStateChanged)
+  // const [initializing, setInitializing] = useState(true)
+  // const [user, setUser] = useState()
+  // // Handle user state changes
+  // const onAuthStateChanged = user => {
+  //   setUser(user)
+  //   // console.log(user.uid);
+  //   if (initializing) setInitializing(false)
+  // }
+  // useEffect(() => {
+  //   const subscriber = auth().onAuthStateChanged(onAuthStateChanged)
 
-    return subscriber // unsubscribe on unmount
-  }, [])
-  if (initializing) return null
+  //   return subscriber // unsubscribe on unmount
+  // }, [])
+  // if (initializing) return null
+  const uid = getUserId()
   return (
     <Stack.Navigator
-      initialRouteName='LandingNav'
+      initialRouteName={uid ? 'HomeNav' : 'LoginNav'}
       screenOptions={{ headerShown: false }}
     >
       <Stack.Screen name='HomeNav' component={TabNav} />

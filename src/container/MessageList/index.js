@@ -17,15 +17,16 @@ import { colors, theme } from '../../configs/colors'
 import CustomIcons from '../../components/CustomIcons'
 import { normalize } from '../../styles/utilityStyle'
 import CustomHeader from '../../components/CommonHeader'
+import { getUserId } from '../../utility/utils'
 export default function MessageList ({ navigation }) {
   const [messageList, setMessageList] = useState([])
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    const uid = 'SDSDSDSDSD'
+    const uid = getUserId()
     const subscribed = firestore()
       .collection('Messages')
-      .where('initialMessage', 'array-contains', 'SDSDSDSDSD')
+      .where('initialMessage', 'array-contains', uid)
       .onSnapshot(querySnapshot => {
         const messageList = querySnapshot.docs.map(doc => {
           const item = doc.data()
@@ -38,7 +39,7 @@ export default function MessageList ({ navigation }) {
   }, [])
 
   const renderItem = ({ item, index }) => {
-    const uid = 'SDSDSDSDSD'
+    const uid = getUserId()
     return <ListItem item={item} navigation={navigation} uid={uid} />
   }
   const LeftIconHeader = () => {

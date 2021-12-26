@@ -23,6 +23,8 @@ export const ProductDetailsModel = (
     userId: userId,
     postedOn: new Date(),
     endDate: endDate,
-    startDate: startDate
+    startDate: startDate,
+    isVerified: false,
+    isOpen: false
   }
 }

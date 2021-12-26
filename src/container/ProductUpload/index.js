@@ -133,6 +133,11 @@ export default function index ({ navigation }) {
         'Success',
         'Successfully Uploaded'
       )
+      setProductTags([])
+      setImages([])
+      setDate(new Date())
+      setEndDate(new Date())
+      setState(initialState)
     } catch (error) {
       console.log(error)
     } finally {

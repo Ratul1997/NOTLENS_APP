@@ -1,13 +1,17 @@
-import React from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
-import CustomeProfileImage from '../../components/CustomeProfileImage';
-import CommonHeader from '../../components/CommonHeader';
-import userImg from '../../assets/images/7.png';
-import {normalize} from '../../styles/utilityStyle';
-import {theme, colors} from '../../configs/colors';
-import CustomButton from '../../components/CustomButton';
+import React from 'react'
+import { View, Text, TouchableOpacity } from 'react-native'
+import CustomeProfileImage from '../../components/CustomeProfileImage'
+import CommonHeader from '../../components/CommonHeader'
+import userImg from '../../assets/images/7.png'
+import { normalize } from '../../styles/utilityStyle'
+import { theme, colors } from '../../configs/colors'
+import CustomButton from '../../components/CustomButton'
 
-const UserImageBlock = ({LeftIconHeader, RightIconHeader}) => {
+const UserImageBlock = ({
+  LeftIconHeader,
+  RightIconHeader,
+  profileDetails
+}) => {
   return (
     <View>
       <CommonHeader
@@ -18,8 +22,8 @@ const UserImageBlock = ({LeftIconHeader, RightIconHeader}) => {
         showRightIcon={true}
         RightIcon={RightIconHeader}
       />
-     
-      <View style={{justifyContent: 'center', alignItems: 'center'}}>
+
+      <View style={{ justifyContent: 'center', alignItems: 'center' }}>
         <CustomeProfileImage
           imgSource={userImg}
           imgWidth={70}
@@ -27,24 +31,26 @@ const UserImageBlock = ({LeftIconHeader, RightIconHeader}) => {
           imgBorder={true}
         />
       </View>
-      <View style={{marginVertical: normalize(5)}}>
+      <View style={{ marginVertical: normalize(5) }}>
         <Text
           style={{
             fontSize: normalize(13),
             textAlign: 'center',
             fontWeight: 'bold',
-            color: colors.white,
-          }}>
-          Nakib57
+            color: colors.white
+          }}
+        >
+          {profileDetails.userName}
         </Text>
         <Text
           style={{
             fontSize: normalize(11),
             textAlign: 'center',
             fontWeight: 'bold',
-            color: colors.white,
-          }}>
-          Md. Akram Hossain
+            color: colors.white
+          }}
+        >
+          {profileDetails.fullName}
         </Text>
       </View>
       {/* <View
@@ -64,7 +70,7 @@ const UserImageBlock = ({LeftIconHeader, RightIconHeader}) => {
         />
       </View> */}
     </View>
-  );
-};
+  )
+}
 
-export default UserImageBlock;
+export default UserImageBlock

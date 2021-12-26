@@ -12,6 +12,8 @@ import CustomTextInput from '../../components/CustomTextInput'
 import { AuctionModel } from '../../model/AuctionModel'
 import PromiseModule from '../../helpers/PromiseModule'
 import AuctionItem from './AuctionItem'
+import { getUserId } from '../../utility/utils'
+import userFunctions from '../../customFunctions/userFunctions'
 export default function index ({ navigation, route }) {
   const [auctionList, setAuctionList] = useState([])
   const [isModalOpen, setModalOpen] = useState(false)
@@ -64,16 +66,19 @@ export default function index ({ navigation, route }) {
 
   const onBid = async () => {
     const productId = route.params?.productId
-    const auctionData = AuctionModel(
-      biddingPrice,
-      'ddsdsd',
-      productId,
-      'asdas',
-      null,
-      'Ratul'
-    )
+    const uid = getUserId()
+
     setIsLoading(true)
     try {
+      const userDetails = await userFunctions.getUserInfo(uid)
+      const auctionData = AuctionModel(
+        biddingPrice,
+        uid,
+        productId,
+        userDetails.userData.userName,
+        null,
+        userDetails.userData.fullName
+      )
       await PromiseModule.storeData('Auction', auctionData)
     } catch (error) {
       console.log(error)
@@ -93,7 +98,7 @@ export default function index ({ navigation, route }) {
           style={{
             backgroundColor: theme.backgroundColor,
             width: '90%',
-            height: '70%',
+            // height: '70%',
             borderRadius: normalize(20),
             padding: normalize(15)
           }}
